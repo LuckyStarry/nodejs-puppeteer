@@ -3,16 +3,15 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/luckystarry/nodejs-puppeteer.svg)](https://hub.docker.com/r/luckystarry/nodejs-puppeteer)
 [![Docker Image Size](https://img.shields.io/docker/image-size/luckystarry/nodejs-puppeteer/20)](https://hub.docker.com/r/luckystarry/nodejs-puppeteer)
 
-Pre-installed Node.js base image with system-level Chromium for Puppeteer (Alpine-based).
+Node.js base image with Puppeteer + Chromium + Chinese font support.
 
 ## Features
 
-- Node.js 20.x (Alpine)
-- System-level Chromium (via apk)
-- Chinese font support (SimSun)
-- No Puppeteer Chromium download required
-- Image size: ~220MB (vs ~450MB with official approach)
-- Build time: ~3 minutes (vs 5-10 minutes)
+- Based on official `ghcr.io/puppeteer/puppeteer:24.4.0`
+- Node.js 20.x
+- Chromium (official, fully compatible)
+- Chinese font (SimSun) for Mermaid rendering
+- Image size: ~350MB
 
 ## Quick Start
 
@@ -32,12 +31,20 @@ RUN npm run build
 CMD ["node", "dist/index.js"]
 ```
 
-### Environment Variables
+### Install mermaid-cli in Your App
 
-```dockerfile
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+```json
+{
+  "dependencies": {
+    "@mermaid-js/mermaid-cli": "^11.0.0"
+  }
+}
 ```
+
+### Environment Variables (inherited from official image)
+
+- `PUPPETEER_EXECUTABLE_PATH` - Chromium path (auto-configured)
+- `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` - Skip download (auto-configured)
 
 ## Build
 
@@ -50,23 +57,15 @@ docker push luckystarry/nodejs-puppeteer:20
 
 ## Image Size
 
-- node:20-alpine3.19: ~50MB
-- Chromium + fonts: ~150MB
+- Official Puppeteer image: ~330MB
 - Chinese font (SimSun): ~17MB
-- **Total: ~220MB**
-
-## Comparison
-
-| Approach | Base | Chromium | Chinese Font | Size | Build Time |
-|----------|------|----------|--------------|------|------------|
-| This image | Alpine | apk | ✅ SimSun | ~220MB | ~3 min |
-| Official | Debian | download | ❌ | ~450MB | 5-10 min |
+- **Total: ~350MB**
 
 ## Notes
 
-1. Alpine uses musl libc - some npm packages may need recompilation
-2. Chinese font (SimSun) is included for Mermaid Chinese text rendering
-3. Lock puppeteer version for system Chromium compatibility
+1. Based on official Puppeteer image - Chromium version is fully compatible
+2. Chinese font (SimSun) included for Mermaid Chinese text rendering
+3. All environment variables inherited from official image
 
 ## License
 
