@@ -9,8 +9,9 @@ Pre-installed Node.js base image with system-level Chromium for Puppeteer (Alpin
 
 - Node.js 20.x (Alpine)
 - System-level Chromium (via apk)
+- Chinese font support (SimSun)
 - No Puppeteer Chromium download required
-- Image size: ~200MB (vs ~450MB with official approach)
+- Image size: ~220MB (vs ~450MB with official approach)
 - Build time: ~3 minutes (vs 5-10 minutes)
 
 ## Quick Start
@@ -51,19 +52,20 @@ docker push luckystarry/nodejs-puppeteer:20
 
 - node:20-alpine3.19: ~50MB
 - Chromium + fonts: ~150MB
-- **Total: ~200MB**
+- Chinese font (SimSun): ~17MB
+- **Total: ~220MB**
 
 ## Comparison
 
-| Approach | Base | Chromium | Size | Build Time |
-|----------|------|----------|------|------------|
-| This image | Alpine | apk | ~200MB | ~3 min |
-| Official | Debian | download | ~450MB | 5-10 min |
+| Approach | Base | Chromium | Chinese Font | Size | Build Time |
+|----------|------|----------|--------------|------|------------|
+| This image | Alpine | apk | ✅ SimSun | ~220MB | ~3 min |
+| Official | Debian | download | ❌ | ~450MB | 5-10 min |
 
 ## Notes
 
 1. Alpine uses musl libc - some npm packages may need recompilation
-2. For Chinese Mermaid text, add Chinese fonts (e.g., simsun.ttc)
+2. Chinese font (SimSun) is included for Mermaid Chinese text rendering
 3. Lock puppeteer version for system Chromium compatibility
 
 ## License

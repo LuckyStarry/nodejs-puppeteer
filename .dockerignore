@@ -3,3 +3,5 @@ node_modules/
 .git
 *.md
 !README.md
+*.ttc
+!simsun.ttc
