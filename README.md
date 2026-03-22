@@ -48,13 +48,32 @@ CMD ["node", "dist/index.js"]
 - `PUPPETEER_EXECUTABLE_PATH` - Chromium path (auto-configured)
 - `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` - Skip download (auto-configured)
 
-## Build
+## Build & Push
+
+### Build Image
 
 ```bash
-./build.sh
-# or
 docker build -t luckystarry/nodejs-puppeteer:24.4.0 .
-docker push luckystarry/nodejs-puppeteer:24.4.0
+```
+
+### Push to Your Registry
+
+**Docker Hub**:
+```bash
+docker tag luckystarry/nodejs-puppeteer:24.4.0 your-username/nodejs-puppeteer:24.4.0
+docker push your-username/nodejs-puppeteer:24.4.0
+```
+
+**Aliyun Container Registry**:
+```bash
+docker tag luckystarry/nodejs-puppeteer:24.4.0 registry.cn-hangzhou.aliyuncs.com/your-namespace/nodejs-puppeteer:24.4.0
+docker push registry.cn-hangzhou.aliyuncs.com/your-namespace/nodejs-puppeteer:24.4.0
+```
+
+**GitHub Container Registry**:
+```bash
+docker tag luckystarry/nodejs-puppeteer:24.4.0 ghcr.io/your-username/nodejs-puppeteer:24.4.0
+docker push ghcr.io/your-username/nodejs-puppeteer:24.4.0
 ```
 
 ## Image Size
